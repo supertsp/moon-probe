@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xxxxx
+    username: root
+    password:
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: false
+#      # JPA OPTIONS:
+#      # none         = ?
+#      # update       = increment DB
+#      # validate     = ?
+#      # create-drop  = reset/create and drops DB when SeessionFactory closes
+#      # ref.: https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+#server:
+#  error:
+#    whitelabel:
+#      enabled: false
