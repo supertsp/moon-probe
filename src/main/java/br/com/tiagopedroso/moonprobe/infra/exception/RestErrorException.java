@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -21,9 +22,10 @@ import java.util.Arrays;
  */
 @Getter
 @Setter
-@JsonIgnoreProperties({ "cause", "localizedMessage", "message", "stackTrace", "suppressed"})
+@JsonIgnoreProperties({"cause", "localizedMessage", "message", "stackTrace", "suppressed"})
 public abstract class RestErrorException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 6080367934703451522L;
 
     protected String status = "KO";
@@ -119,9 +121,9 @@ public abstract class RestErrorException extends RuntimeException {
     private String validateDetail(Object detail) {
         if (detail != null) {
             if (detail instanceof RestErrorException) {
-                return  ((RestErrorException) detail).getDetail();
-            }else if (detail instanceof Exception) {
-                return  ((Exception) detail).getMessage();
+                return ((RestErrorException) detail).getDetail();
+            } else if (detail instanceof Exception) {
+                return ((Exception) detail).getMessage();
             } else {
                 return detail.toString();
             }
@@ -134,18 +136,32 @@ public abstract class RestErrorException extends RuntimeException {
     public String toString() {
         var list = Arrays.asList(super.getStackTrace());
 
-        return "RestErrorException {"
-                + "\n  \"status\": \"" + status + "\", "
-                + "\n  \"statusCode\": " + statusCode + ", "
-                + "\n  \"type\": \"" + type + "\", "
-                + "\n  \"title\": \"" + title + "\", "
-                + "\n  \"detail\": \"" + detail + "\", "
-                + "\n  \"path\": \"" + path + "\", "
-                + "\n  \"timestamp\": \"" + timestamp + "\", "
-                + "\n  \"message\": \"" + super.getMessage() + "\", "
-                + "\n  \"localizedMessage\": \"" + super.getLocalizedMessage() + "\", "
-                + "\n  \"cause\": \"" + super.getCause() + "\", "
-                + "\n  \"stackTrace\": \"" + list + "\" "
-                +"\n}";
+        return """
+                RestErrorException {
+                    "status": "%s",
+                    "statusCode": "%s",
+                    "type": "%s",
+                    "title": "%s",
+                    "detail": "%s",
+                    "path": "%s",
+                    "timestamp": "%s",
+                    "message": "%s",
+                    "localizedMessage": "%s",
+                    "cause": "%s",
+                    "stackTrace": "%s"
+                }"""
+                .formatted(
+                        status,
+                        statusCode,
+                        type,
+                        title,
+                        detail,
+                        path,
+                        timestamp,
+                        super.getMessage(),
+                        super.getLocalizedMessage(),
+                        super.getCause(),
+                        list
+                );
     }
 }
