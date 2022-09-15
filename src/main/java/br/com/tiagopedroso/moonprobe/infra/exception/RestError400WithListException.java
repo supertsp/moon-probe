@@ -4,7 +4,6 @@ package br.com.tiagopedroso.moonprobe.infra.exception;
  * Class imported from https://github.com/supertsp/livraria-online-api
  */
 
-import br.com.tiagopedroso.moonprobe.infra.exception.dto.ItemErrorDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
@@ -23,7 +22,7 @@ public class RestError400WithListException extends RestError400Exception {
      * A human-readable explanation specific to this occurrence of the problem
      */
     @JsonProperty("detail")
-    private List<ItemErrorDto> detailList;
+    private List<RestFieldItemError> detailList;
 
 
     public RestError400WithListException(List<FieldError> springFieldErrors, HttpServletRequest request) {
@@ -33,7 +32,7 @@ public class RestError400WithListException extends RestError400Exception {
 
         this.detailList = springFieldErrors.stream()
                 .map(fieldError ->
-                        ItemErrorDto.build(
+                        RestFieldItemError.build(
                                 fieldError.getField(),
                                 fieldError.getDefaultMessage()
                         )

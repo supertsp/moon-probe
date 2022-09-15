@@ -1,4 +1,4 @@
-package br.com.tiagopedroso.moonprobe.infra.exception.dto;
+package br.com.tiagopedroso.moonprobe.infra.exception;
 
 /**
  * Class imported from https://github.com/supertsp/livraria-online-api
@@ -11,13 +11,13 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class ItemErrorDto {
+public class RestFieldItemError {
 
     private String field;
     private String message;
 
-    public static ItemErrorDto build(String field, Object message) {
-        return new ItemErrorDto(field, message.toString());
+    public static RestFieldItemError build(String field, Object message) {
+        return new RestFieldItemError(field, message.toString());
     }
 
 }

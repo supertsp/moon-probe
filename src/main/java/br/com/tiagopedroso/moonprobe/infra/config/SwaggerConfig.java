@@ -1,42 +1,45 @@
 package br.com.tiagopedroso.moonprobe.infra.config;
 
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
-import java.util.ArrayList;
-
-@Configuration
 public class SwaggerConfig {
 
+    /*
+    Tips: Migrating from SpringFox
+    https://springdoc.org/#migrating-from-springfox
+
+    Swagger URL: http://localhost:8080/swagger-ui.html
+     */
+
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.tiagopedroso.moonprobe.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("controller")
+                .pathsToMatch("/public/**")
+                .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-                "The Moon Probe API",
-                "A Rest API to manipulate a Lunar Probe via directional commands",
-                "1.0",
-                "urn:tos",
-                new Contact(
-                        "Tiago Penha Pedroso",
-                        "https://github.com/supertsp",
-                        "tiago.souza.pedroso@gmail.com"),
-                "Apache 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0",
-                new ArrayList<>());
+    @Bean
+    public OpenAPI springShopOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("The Moon Probe API")
+                        .description("A Rest API to manipulate a Lunar Probe via directional commands")
+                        .version("1.0.0")
+                        .license(new License()
+                                .name("Apache 2.0")
+                                .url("http://www.apache.org/licenses/LICENSE-2.0")
+                        )
+                )
+                .externalDocs(new ExternalDocumentation()
+                        .description("The Moon Probe API - Source code")
+                        .url("https://github.com/supertsp/moon-probe")
+                );
     }
 
 }
