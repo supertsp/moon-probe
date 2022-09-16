@@ -19,15 +19,12 @@ public class FitCoord {
             heightLimit = 0;
 
     public FitCoord(Integer widthLimit, Integer heightLimit) {
-        setWidthLimit(widthLimit);
-        setHeightLimit(heightLimit);
+        setLimits(widthLimit, heightLimit);
     }
 
     public FitCoord(Integer x, Integer y, Integer widthLimit, Integer heightLimit) {
-        setWidthLimit(widthLimit);
-        setHeightLimit(heightLimit);
-        setX(x);
-        setY(y);
+        setLimits(widthLimit, heightLimit);
+        setPositions(x, y);
     }
 
     public void setX(Integer x) {
@@ -44,6 +41,11 @@ public class FitCoord {
         } else {
             throw new FitCoordException("y", y, "heightLimit", heightLimit);
         }
+    }
+
+    public void setPositions(Integer x, Integer y) {
+        setX(x);
+        setY(y);
     }
 
     public void setWidthLimit(Integer widthLimit) {
@@ -70,6 +72,11 @@ public class FitCoord {
         }
     }
 
+    public void setLimits(Integer widthLimit, Integer heightLimit) {
+        setWidthLimit(widthLimit);
+        setHeightLimit(heightLimit);
+    }
+
     public void incrementX(Integer value) {
         x += value;
 
@@ -94,6 +101,11 @@ public class FitCoord {
         }
     }
 
+    public void incrementPositions(Integer xValue, Integer yValue){
+        incrementX(xValue);
+        incrementY(yValue);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getX(), getY(), getWidthLimit(), getHeightLimit());
@@ -113,13 +125,14 @@ public class FitCoord {
     @Override
     public String toString() {
         return """
-                FitCoord {
+                { "class": "%s", "fields": {
                     "x": %d,
                     "y": %d,
                     "widthLimit": %d,
                     "heightLimit": %d
-                }"""
+                }}"""
                 .formatted(
+                        this.getClass().getSimpleName(),
                         x,
                         y,
                         widthLimit,

@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FitCoordTest {
 
-    final String ERROR_MESSAGE_OUTSIDE_LIMIT = "The value of %s=%d is outside %s=%d";
-
-
     @Test
     void using_No_Args_Constructor_Should_return_fields_equals_zero() {
         //Given
@@ -105,7 +102,6 @@ class FitCoordTest {
                 () -> new FitCoord(widthLimit, heightLimit)
         );
     }
-
 
     @Test
     void given_x_value_greater_then_widthLimit_on_All_Args_Constructor_Should_throw_error() {
@@ -378,6 +374,5 @@ class FitCoordTest {
         //Then
         assertEquals(coord.getY(), heightLimit);
     }
-
 
 }
