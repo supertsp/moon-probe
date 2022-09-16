@@ -13,7 +13,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, true);
@@ -26,7 +26,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, true);
@@ -39,7 +39,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, true);
@@ -52,7 +52,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, false);
@@ -65,7 +65,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, false);
@@ -78,7 +78,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, false);
@@ -91,7 +91,7 @@ class CommandSequenceTest {
         var commands = new CommandSequence(sequence);
 
         //When
-        var result = commands.isValidCommandSequence();
+        var result = commands.isValid();
 
         //Then
         assertEquals(result, false);
@@ -203,6 +203,5 @@ class CommandSequenceTest {
         //Then
         assertEquals(result, false);
     }
-
 
 }

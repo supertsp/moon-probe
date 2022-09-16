@@ -12,7 +12,7 @@ public class CommandSequence {
     private final String sequence;
 
     @Getter
-    private final boolean validCommandSequence;
+    private final boolean valid;
 
     @EqualsAndHashCode.Exclude
     private int currentIndex = START_INDEX;
@@ -25,11 +25,11 @@ public class CommandSequence {
 
     public CommandSequence(String sequence) {
         this.sequence = sequence.toUpperCase().trim();
-        validCommandSequence = validateCommandSequence();
+        valid = validateCommandSequence();
     }
 
     private Command getCommand(int index) {
-        if (!validCommandSequence) {
+        if (!valid) {
             return Command.NULL;
         }
 
@@ -87,8 +87,8 @@ public class CommandSequence {
         return (currentIndex + 1) == sequence.length();
     }
 
-    public boolean isValidCommandSequence() {
-        return validCommandSequence;
+    public boolean isValid() {
+        return valid;
     }
 
     public Command getCurrentCommand() {
