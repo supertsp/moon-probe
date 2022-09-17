@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CelestialProbeApplication {
+public class MoonProbeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CelestialProbeApplication.class, args);
-		System.out.println("\nNow the Celestial Probe API is running ;)");
+		SpringApplication.run(MoonProbeApplication.class, args);
+		System.out.println("\nNow the Moon Probe API is running ;)");
 	}
 
 }

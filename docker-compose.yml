@@ -5,9 +5,9 @@ services:
     image: mysql:5.7
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: celestial
-      MYSQL_DATABASE: celestial_probe
-      MYSQL_USER: celestial
+      MYSQL_ROOT_PASSWORD: supermoon
+      MYSQL_DATABASE: moon_probe
+      MYSQL_USER: moon
       MYSQL_PASSWORD: probe123
     ports:
       - "3306:3306"
