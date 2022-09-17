@@ -15,10 +15,10 @@
 	</properties>
 
 	<groupId>br.com.tiagopedroso</groupId>
-	<artifactId>moon-probe</artifactId>
+	<artifactId>celestial-probe</artifactId>
 	<version>1.0.0</version>
-	<name>MoonProbe</name>
-	<description>A Rest API to manipulate a Lunar Probe via directional commands</description>
+	<name>CelestialProbe</name>
+	<description>A Rest API to manipulate a Celestial Probe via directional commands</description>
 
 	<dependencies>
 

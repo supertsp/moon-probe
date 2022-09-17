@@ -270,4 +270,73 @@ class ProbeTest {
         assertEquals(expectedCoord, resultCoord);
     }
 
+    @Test
+    void testing_commandSequence_scenario_LMLMLMLMM_with_moveBack() {
+        //Given
+        var name = "Sun Rover";
+        var x = 1;
+        var y = 2;
+        var widthLimit = 5;
+        var heightLimit = 5;
+        var coord = new FitCoord(x, y, widthLimit, heightLimit);
+        var orientation = Orientation.NORTH;
+        var commandSequence = new CommandSequence("LMLMLMLMM");
+
+        var probe = new Probe(name, coord, orientation, commandSequence);
+
+        var expectedX = 1;
+        var expectedY = 2;
+        var expectedCoord = new FitCoord(expectedX, expectedY, widthLimit, heightLimit);
+        var expectedOrientation = Orientation.NORTH;
+
+        //When
+        probe.moveUntilLastCommand();
+        probe.moveBack();
+        var resultCoord = probe.coord;
+        var resultOrientation = probe.orientation;
+
+        System.out.println(probe.getMovementDebugging());
+
+        //Then
+        assertEquals(expectedX, resultCoord.getX());
+        assertEquals(expectedY, resultCoord.getY());
+        assertEquals(expectedOrientation, resultOrientation);
+        assertEquals(expectedCoord, resultCoord);
+    }
+
+    @Test
+    void testing_commandSequence_scenario_LMLMLMLL_with_moveBack_Should_return_last_position_but_different_orientation() {
+        //Given
+        var name = "Sun Rover";
+        var x = 1;
+        var y = 2;
+        var widthLimit = 5;
+        var heightLimit = 5;
+        var coord = new FitCoord(x, y, widthLimit, heightLimit);
+        var orientation = Orientation.NORTH;
+        var commandSequence = new CommandSequence("LMLMLMLL");
+
+        var probe = new Probe(name, coord, orientation, commandSequence);
+
+        var expectedX = 0;
+        var expectedY = 1;
+        var expectedCoord = new FitCoord(expectedX, expectedY, widthLimit, heightLimit);
+        var expectedOrientation = Orientation.WEST;
+
+        //When
+        probe.moveUntilLastCommand();
+        probe.moveBack();
+        var resultCoord = probe.coord;
+        var resultOrientation = probe.orientation;
+
+        System.out.println(probe.getMovementDebugging());
+
+        //Then
+        assertEquals(expectedX, resultCoord.getX());
+        assertEquals(expectedY, resultCoord.getY());
+        assertEquals(expectedOrientation, resultOrientation);
+        assertEquals(expectedCoord, resultCoord);
+    }
+
+
 }

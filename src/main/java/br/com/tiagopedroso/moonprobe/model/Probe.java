@@ -3,9 +3,7 @@ package br.com.tiagopedroso.moonprobe.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public class Probe {
 
@@ -14,7 +12,6 @@ public class Probe {
     public String name = "";
 
     @Getter
-    @Setter
     public FitCoord coord = new FitCoord();
 
     @Getter
@@ -30,6 +27,12 @@ public class Probe {
 
     @EqualsAndHashCode.Exclude
     private StringBuilder movementDebugging;
+
+    @EqualsAndHashCode.Exclude
+    private int lastPositionOfX = 0;
+
+    @EqualsAndHashCode.Exclude
+    private int lastPositionOfY = 0;
 
     public Probe() {
         startsMovementDebugging();
@@ -58,6 +61,20 @@ public class Probe {
         );
     }
 
+    private void capturesMovementDebugging(Command currentCommand) {
+        movementDebugging.append("""
+                Command: %s     -   Moves: %d
+                x: %d, y: %d - %s
+                    y: %d, x: %d \n          
+                """.formatted(currentCommand, totalMovements, coord.getX(), coord.getY(), orientation, coord.getY(), coord.getX())
+        );
+    }
+
+    private void updateLastPositions() {
+        lastPositionOfX = coord.getX();
+        lastPositionOfY = coord.getY();
+    }
+
     public boolean move() {
         if (commandSequence == null || !commandSequence.isValid() || !commandSequence.hasMoreCommand()) {
             return false;
@@ -71,6 +88,8 @@ public class Probe {
             case L -> orientation = Orientation.getNext(false, orientation);
 
             case M -> {
+                updateLastPositions();
+
                 switch (orientation) {
                     case NORTH -> coord.incrementY(1);
 
@@ -85,20 +104,25 @@ public class Probe {
 
         totalMovements++;
 
-        movementDebugging.append("""
-                Command: %s     -   Moves: %d
-                x: %d, y: %d - %s
-                    y: %d, x: %d \n          
-                """.formatted(currentCommand, totalMovements, coord.getX(), coord.getY(), orientation, coord.getY(), coord.getX())
-        );
+        capturesMovementDebugging(currentCommand);
 
         return true;
     }
 
+    public void moveBack() {
+        coord.setPositions(lastPositionOfX, lastPositionOfY);
+        totalMovements++;
+        capturesMovementDebugging(Command.BACK);
+    }
+
     public void moveUntilLastCommand() {
         if (commandSequence != null && commandSequence.isValid()) {
-            while (move());
+            while (move()) ;
         }
+    }
+
+    public boolean hasMoreMoves() {
+        return commandSequence.hasMoreCommand();
     }
 
     public void resetMovements() {
@@ -107,6 +131,13 @@ public class Probe {
 
         if (commandSequence != null) {
             commandSequence.restartSequence();
+        }
+    }
+
+    public void setCoord(FitCoord coord) {
+        if (coord != null) {
+            this.coord = coord;
+            updateLastPositions();
         }
     }
 
@@ -119,5 +150,27 @@ public class Probe {
         return movementDebugging.toString();
     }
 
-
+    @Override
+    public String toString() {
+        return """
+                { "class": "%s", "fields": {
+                    "name": %s,
+                    "coord": %s,
+                    "orientation": %s,
+                    "commandSequence": %s,
+                    "totalMovements": %d,
+                    "lastPositionOfX": %d,
+                    "lastPositionOfY": %s
+                }}"""
+                .formatted(
+                        this.getClass().getSimpleName(),
+                        name,
+                        coord,
+                        orientation,
+                        commandSequence,
+                        totalMovements,
+                        lastPositionOfX,
+                        lastPositionOfY
+                );
+    }
 }

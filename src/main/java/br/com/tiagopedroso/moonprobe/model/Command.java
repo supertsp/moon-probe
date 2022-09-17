@@ -17,6 +17,11 @@ public enum Command {
     R,
 
     /**
+     * BACK = for cases of return to previous positions
+     */
+    BACK,
+
+    /**
      * NULL = for cases of invalid commands
      */
     NULL

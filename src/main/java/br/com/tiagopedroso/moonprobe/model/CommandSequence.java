@@ -2,9 +2,7 @@ package br.com.tiagopedroso.moonprobe.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public class CommandSequence {
 
@@ -108,6 +106,23 @@ public class CommandSequence {
         return auxHasMoreCommand;
     }
 
+    @Override
+    public String toString() {
+        return """
+                { "class": "%s", "fields": {
+                    "sequence": %s,
+                    "valid": %s,
+                    "currentIndexOfCommand": %d,
+                    "hasMoreCommand": %s
+                }}"""
+                .formatted(
+                        this.getClass().getSimpleName(),
+                        sequence,
+                        valid,
+                        currentIndex,
+                        auxHasMoreCommand
+                );
+    }
 }
 
 

@@ -36,11 +36,12 @@ public class FitCoordException extends RuntimeException {
         var list = Arrays.asList(super.getStackTrace());
 
         return """
-                FitCoordException {
+                { "class": "%s", "fields": {
                     "message": "%s",
                     "stackTrace": "%s"
                 }"""
                 .formatted(
+                        this.getClass().getSimpleName(),
                         message,
                         list
                 );
