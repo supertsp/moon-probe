@@ -2,6 +2,7 @@ package br.com.tiagopedroso.moonprobe.entrypoint.service;
 
 import br.com.tiagopedroso.moonprobe.entrypoint.dto.celestialarea.CelestialAreaCreate;
 import br.com.tiagopedroso.moonprobe.entrypoint.dto.celestialarea.CelestialAreaResponse;
+import br.com.tiagopedroso.moonprobe.entrypoint.dto.probe.ProbeResponse;
 import br.com.tiagopedroso.moonprobe.entrypoint.model.CelestialArea;
 import br.com.tiagopedroso.moonprobe.infra.converter.CelestialAreaConverter;
 import br.com.tiagopedroso.moonprobe.infra.exception.RestError400Exception;
@@ -82,5 +83,9 @@ public class CelestialAreaService {
         }
 
         throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
+    }
+
+    public ProbeResponse moveProbe(Long id, Long probeId) {
+        return null;
     }
 }

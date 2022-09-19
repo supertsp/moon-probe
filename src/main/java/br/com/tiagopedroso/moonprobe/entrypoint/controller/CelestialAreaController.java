@@ -1,9 +1,8 @@
 package br.com.tiagopedroso.moonprobe.entrypoint.controller;
 
 import br.com.tiagopedroso.moonprobe.entrypoint.dto.celestialarea.CelestialAreaCreate;
-import br.com.tiagopedroso.moonprobe.entrypoint.dto.common.InclusionIds;
-import br.com.tiagopedroso.moonprobe.infra.handler.RestMessageHandler;
 import br.com.tiagopedroso.moonprobe.entrypoint.service.CelestialAreaService;
+import br.com.tiagopedroso.moonprobe.infra.handler.RestMessageHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +46,28 @@ public class CelestialAreaController {
         return RestMessageHandler.resourceDeleted(id);
     }
 
-    @PostMapping("/probes/include")
-    ResponseEntity<?> includeProbe(@RequestBody InclusionIds inclusionIds) {
+    @PostMapping("/{id}/probes/include/{probeId}")
+    ResponseEntity<?> includeProbe(
+            @PathVariable("id") Long id,
+            @PathVariable("probeId") Long probeId
+    ) {
         return RestMessageHandler.ok(
                 service.includeProbe(
-                        inclusionIds.celestialAreaId(),
-                        inclusionIds.probeId()
+                        id,
+                        probeId
+                )
+        );
+    }
+
+    @PostMapping("/{id}/probes/move/{probeId}")
+    ResponseEntity<?> moveProbe(
+            @PathVariable("id") Long id,
+            @PathVariable("probeId") Long probeId
+    ) {
+        return RestMessageHandler.ok(
+                service.moveProbe(
+                        id,
+                        probeId
                 )
         );
     }
