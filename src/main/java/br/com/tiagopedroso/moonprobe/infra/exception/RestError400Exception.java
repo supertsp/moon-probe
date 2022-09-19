@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @ToString(callSuper = true)
 public class RestError400Exception extends RestErrorException {
 
-    public static final String TITLE = "Unfortunately, the searched resource or payload contains one or more invalid items. :(";
+    public static final String TITLE = "Unfortunately, this request contains one or more invalid items. :(";
 
     public RestError400Exception(Object detail, HttpServletRequest request) {
         super(

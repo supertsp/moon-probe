@@ -1,9 +1,10 @@
-package br.com.tiagopedroso.moonprobe.infra.tool;
+package br.com.tiagopedroso.moonprobe.infra.converter;
 
 /**
  * Class imported from https://github.com/supertsp/livraria-online-api
  */
 
+import br.com.tiagopedroso.moonprobe.infra.tool.Validate;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.PrintWriter;
@@ -15,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class UpdateObject {
+public class Mapper {
 
-    private UpdateObject() {}
+    private Mapper() {}
 
-    public static <A, B> B mappingValues(A mainObject, B mirrorObject) {
+    public static <A, B> B copyFields(A mainObject, B mirrorObject) {
         if (mainObject == null || mirrorObject == null) return null;
 
         final var classA = mainObject.getClass();
@@ -57,12 +58,12 @@ public class UpdateObject {
         return mirrorObject;
     }
 
-    public static <T> T mappingValues(Object mainObject, Class<T> typeOfMirrorObject) {
+    public static <T> T copyFields(Object mainObject, Class<T> typeOfMirrorObject) {
         if (mainObject == null || typeOfMirrorObject == null) return null;
 
         try {
             final var mirrorObject = typeOfMirrorObject.getDeclaredConstructor().newInstance();
-            return mappingValues(mainObject, mirrorObject);
+            return copyFields(mainObject, mirrorObject);
         } catch (Exception e) {
             StringWriter stringWriter = new StringWriter();
             e.printStackTrace(new PrintWriter(stringWriter));
@@ -76,8 +77,8 @@ public class UpdateObject {
             return null;
         }
     }
-
-    public static <A, B> B mappingOnlyNullValues(A mainObject, B mirrorObject) {
+//copyValuesToNullFieldsOnly
+    public static <A, B> B copyFieldsToNullsOnly(A mainObject, B mirrorObject) {
         if (mainObject == null || mirrorObject == null) return null;
 
         final var classA = mainObject.getClass();

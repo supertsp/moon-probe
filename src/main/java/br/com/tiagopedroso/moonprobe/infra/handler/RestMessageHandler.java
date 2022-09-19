@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 
 public final class RestMessageHandler {
 
-    private RestMessageHandler() {
-    }
+    private RestMessageHandler() {}
 
     private static final String
             KEY_STATUS = "status",
@@ -23,11 +22,11 @@ public final class RestMessageHandler {
             KEY_CONTENT = "content"
     ;
 
-    public static <T> ResponseEntity<?> ok(T objetoDeResposta) {
+    public static <T> ResponseEntity<?> ok(T responseObject) {
         final Map<String, Object> body;
 
-        if (objetoDeResposta instanceof Page) {
-            final var page = (Page) objetoDeResposta;
+        if (responseObject instanceof Page) {
+            final var page = (Page) responseObject;
             final var sortList = page.getSort().toList().stream()
                     .map(order -> order.getDirection() + "," + order.getProperty())
                     .collect(Collectors.toList());
@@ -46,44 +45,44 @@ public final class RestMessageHandler {
             body = OrderedMapHandler.create(
                     KEY_STATUS, "OK",
                     KEY_STATUS_CODE, 200,
-                    KEY_CONTENT, objetoDeResposta
+                    KEY_CONTENT, responseObject
             );
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    public static <T> ResponseEntity<?> resourceCreated(Long novoId, T objetoDeResposta) {
+    public static <T> ResponseEntity<?> resourceCreated(T responseObject, Long id) {
         final var body = OrderedMapHandler.create(
                 KEY_STATUS, "OK",
                 KEY_STATUS_CODE, 201,
-                KEY_CONTENT, objetoDeResposta
+                KEY_CONTENT, responseObject
         );
 
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(novoId)
+                .buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(uri).body(body);
     }
 
-    public static <T> ResponseEntity<?> resourceUpdated(T objetoDeResposta) {
+    public static <T> ResponseEntity<?> resourceUpdated(T responseObject) {
         final var body = OrderedMapHandler.create(
                 KEY_STATUS, "OK",
                 KEY_STATUS_CODE, 200,
-                KEY_CONTENT, objetoDeResposta
+                KEY_CONTENT, responseObject
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    public static <T> ResponseEntity<?> resourceDeleted(Long idConteudo) {
+    public static <T> ResponseEntity<?> resourceDeleted(Long id) {
         final var body = OrderedMapHandler.create(
                 KEY_STATUS, "OK",
                 KEY_STATUS_CODE, 200,
-                KEY_CONTENT, "The resource id '" + idConteudo + "' was deleted successfully"
+                KEY_CONTENT, "The resource id '" + id + "' was deleted successfully"
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(body);

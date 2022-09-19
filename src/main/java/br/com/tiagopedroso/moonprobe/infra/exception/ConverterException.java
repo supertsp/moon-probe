@@ -1,6 +1,5 @@
 package br.com.tiagopedroso.moonprobe.infra.exception;
 
-import br.com.tiagopedroso.moonprobe.logic.FitCoord;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,22 +8,22 @@ import java.util.Arrays;
 
 @Getter
 @Setter
-public class CelestialAreaException extends RuntimeException {
+public class ConverterException extends RuntimeException {
 
     @Serial
-    private static final long serialVersionUID = 6080367934703451524L;
+    private static final long serialVersionUID = 6080367934703451525L;
 
     private String message;
 
-    public static final String MESSAGE_PROBE_POSITION_ALREADY_OCCUPIED = "The position (%d, %d) of probe \"%s\" is already occupied!";
+    public static final String MESSAGE_NULL_OBJECT = "\"The %s \"%s\" is null! :o\"";
 
-    public CelestialAreaException(String message) {
+    public ConverterException(String message) {
         super(message);
         this.message = message;
     }
 
-    public CelestialAreaException(FitCoord coord, String probeName) {
-        this(MESSAGE_PROBE_POSITION_ALREADY_OCCUPIED.formatted(coord.getX(), coord.getY(), probeName));
+    public <T> ConverterException(String objectType, Class<T> errorGeneratingClass) {
+        this(MESSAGE_NULL_OBJECT.formatted(MESSAGE_NULL_OBJECT, objectType, errorGeneratingClass.getSimpleName()));
     }
 
     @Override

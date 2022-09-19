@@ -1,4 +1,4 @@
-package br.com.tiagopedroso.moonprobe.model;
+package br.com.tiagopedroso.moonprobe.logic;
 
 import br.com.tiagopedroso.moonprobe.infra.exception.FitCoordException;
 import lombok.Getter;

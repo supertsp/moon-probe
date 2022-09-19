@@ -1,4 +1,4 @@
-package br.com.tiagopedroso.moonprobe.model;
+package br.com.tiagopedroso.moonprobe.logic;
 
 import br.com.tiagopedroso.moonprobe.infra.exception.CelestialAreaException;
 import lombok.EqualsAndHashCode;
@@ -23,9 +23,11 @@ public class CelestialArea {
             width = 0,
             height = 0;
 
+    @Getter
     private List<Probe> probes = new ArrayList<>();
 
     public CelestialArea(String name, Integer width, Integer height) {
+        setName(name);
         setDimensions(width, height);
     }
 
@@ -126,11 +128,6 @@ public class CelestialArea {
     public Probe getProbe(int index) {
         return probes.get(index);
     }
-
-    //TODO: Manter esse método?
-//    public Stream<Probe> getProbesStream() {
-//        return probes.stream();
-//    }
 
     public void forEachProbe(Consumer<Probe> action) {
         Objects.requireNonNull(action);

@@ -1,30 +1,30 @@
-package br.com.tiagopedroso.moonprobe.infra.tool;
+package br.com.tiagopedroso.moonprobe.infra.converter;
 
 /**
  * Class imported from https://github.com/supertsp/livraria-online-api
  */
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-class UpdateObjectTest {
+class MapperTest {
 
     /*--------------------------------+
-    |  mappingValues( SUPER, SUPER )  |
+    |  copyFields( SUPER, SUPER )  |
     +---------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -43,12 +43,12 @@ class UpdateObjectTest {
         dto.setSalario(20_200.22);
         dto.setGerente(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -63,7 +63,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -75,12 +75,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -95,7 +95,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -114,12 +114,12 @@ class UpdateObjectTest {
         dto.setSalario(20_200.22);
         dto.setGerente(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -135,12 +135,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------+
-    |  mappingValues( SUPER, SUB )  |
+    |  copyFields( SUPER, SUB )  |
     +-------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -162,12 +162,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -182,7 +182,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -194,12 +194,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -214,7 +214,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -236,12 +236,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -257,12 +257,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------+
-    |  mappingValues( SUB, SUPER )  |
+    |  copyFields( SUB, SUPER )  |
     +-------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -284,12 +284,12 @@ class UpdateObjectTest {
         dto.setSalario(20_200.22);
         dto.setGerente(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -304,7 +304,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -319,12 +319,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUPER_em_branco__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -339,7 +339,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -361,12 +361,12 @@ class UpdateObjectTest {
         dto.setSalario(20_200.22);
         dto.setGerente(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUPER_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -382,12 +382,12 @@ class UpdateObjectTest {
 
 
     /*----------------------------+
-    |  mappingValues( SUB, SUB )  |
+    |  copyFields( SUB, SUB )  |
     +-----------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -412,12 +412,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -434,7 +434,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -449,12 +449,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_em_branco__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -471,7 +471,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -496,12 +496,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -519,12 +519,12 @@ class UpdateObjectTest {
 
 
     /*----------------------------+
-    |  mappingValues( SUB, NEW )  |
+    |  copyFields( SUB, NEW )  |
     +-----------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -539,12 +539,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -562,12 +562,12 @@ class UpdateObjectTest {
 
 
     /*----------------------------+
-    |  mappingValues( NEW, SUB )  |
+    |  copyFields( NEW, SUB )  |
     +-----------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -582,12 +582,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingValues(model, dto);
+        Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -605,12 +605,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------+
-    |  mappingValues( SUPER, NULL )  |
+    |  copyFields( SUPER, NULL )  |
     +--------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_null__Entao_retornar_null() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = null;
@@ -622,12 +622,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_null__Entao_retornar_null");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_objetoB_SUPER_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        var mappingSuccess = UpdateObject.mappingValues(model, dto);
+        var mappingSuccess = Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -639,12 +639,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------+
-    |  mappingValues( NULL, SUPER )  |
+    |  copyFields( NULL, SUPER )  |
     +--------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_null_e_objetoB_SUPER_preenchido__Entao_retornar_null() {
+    public void copyFields__Com_objetoA_SUPER_null_e_objetoB_SUPER_preenchido__Entao_retornar_null() {
         //Dado
         ObjetoModelSuper model = null;
         ObjetoDtoSuper dto = new ObjetoDtoSuper();
@@ -656,12 +656,12 @@ class UpdateObjectTest {
         dto.setSalario(20_200.22);
         dto.setGerente(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_null_e_objetoB_SUPER_preenchido__Entao_retornar_null");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_null_e_objetoB_SUPER_preenchido__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        var mappingSuccess = UpdateObject.mappingValues(model, dto);
+        var mappingSuccess = Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -673,22 +673,22 @@ class UpdateObjectTest {
 
 
     /*-------------------------------+
-    |  mappingValues( NULL, NULL )  |
+    |  copyFields( NULL, NULL )  |
     +--------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_null_e_objetoB_SUPER_null__Entao_retornar_null() {
+    public void copyFields__Com_objetoA_SUPER_null_e_objetoB_SUPER_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSuper model = null;
         ObjetoDtoSuper dto = null;
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_null_e_objetoB_SUPER_null__Entao_retornar_null");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_null_e_objetoB_SUPER_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        var mappingSuccess = UpdateObject.mappingValues(model, dto);
+        var mappingSuccess = Mapper.copyFields(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -703,12 +703,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------------+
-    |  mappingValues( SUPER, TYPE_SUPER )  |
+    |  copyFields( SUPER, TYPE_SUPER )  |
     +--------------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_tipo_SUPER__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_tipo_SUPER__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = null;
@@ -720,12 +720,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_tipo_SUPER__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_tipo_SUPER__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSuper.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSuper.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -740,7 +740,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = null;
@@ -752,12 +752,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSuper.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSuper.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -773,12 +773,12 @@ class UpdateObjectTest {
 
 
     /*-----------------------------------+
-    |  mappingValues( SUPER, TYPE_SUB )  |
+    |  copyFields( SUPER, TYPE_SUB )  |
     +------------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_tipo_SUB__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_tipo_SUB__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSub dto = null;
@@ -790,12 +790,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_tipo_SUB__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_tipo_SUB__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSub.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSub.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -810,7 +810,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = null;
@@ -822,12 +822,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSuper.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSuper.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -843,12 +843,12 @@ class UpdateObjectTest {
 
 
     /*-----------------------------------+
-    |  mappingValues( SUB, TYPE_SUPER )  |
+    |  copyFields( SUB, TYPE_SUPER )  |
     +------------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_tipo_SUPER__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_tipo_SUPER__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSuper dto = null;
@@ -863,12 +863,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_tipo_SUPER__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_tipo_SUPER__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSuper.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSuper.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -884,7 +884,7 @@ class UpdateObjectTest {
 
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSuper dto = null;
@@ -899,12 +899,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
 //        model.setHabilitado(null);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_com_alguns_null_e_tipo_SUPER__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSuper.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSuper.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -920,12 +920,12 @@ class UpdateObjectTest {
 
 
     /*---------------------------------+
-    |  mappingValues( SUB, TYPE_SUB )  |
+    |  copyFields( SUB, TYPE_SUB )  |
     +----------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_preenchido_e_tipo_SUB__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_preenchido_e_tipo_SUB__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = null;
@@ -940,12 +940,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_preenchido_e_tipo_SUB__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_preenchido_e_tipo_SUB__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSub.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSub.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -962,7 +962,7 @@ class UpdateObjectTest {
     }
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = null;
@@ -977,12 +977,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
 //        model.setHabilitado(null);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_parcialmente_preenchido_e_tipo_SUB__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSub.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSub.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1000,22 +1000,22 @@ class UpdateObjectTest {
 
 
     /*---------------------------------+
-    |  mappingValues( NEW, TYPE_SUB )  |
+    |  copyFields( NEW, TYPE_SUB )  |
     +----------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUB_instanciado_e_tipo_SUB__Entao_retornar_dto() {
+    public void copyFields__Com_objetoA_SUB_instanciado_e_tipo_SUB__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = null;
 
-        System.out.println("\nmappingValues__Com_objetoA_SUB_instanciado_e_tipo_SUB__Entao_retornar_dto");
+        System.out.println("\ncopyFields__Com_objetoA_SUB_instanciado_e_tipo_SUB__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, ObjetoDtoSub.class);
+        dto = Mapper.copyFields(model, ObjetoDtoSub.class);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1033,12 +1033,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------+
-    |  mappingValues( SUPER, NULL )  |
+    |  copyFields( SUPER, NULL )  |
     +--------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_preenchido_e_tipo_null__Entao_retornar_null() {
+    public void copyFields__Com_objetoA_SUPER_preenchido_e_tipo_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSuper model = new ObjetoModelSuper();
         ObjetoDtoSuper dto = null;
@@ -1050,12 +1050,12 @@ class UpdateObjectTest {
         model.setSalario(10_000.15);
         model.setGerente(false);
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_preenchido_e_tipo_null__Entao_retornar_null");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_preenchido_e_tipo_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, null);
+        dto = Mapper.copyFields(model, null);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1067,22 +1067,22 @@ class UpdateObjectTest {
 
 
     /*------------------------------+
-    |  mappingValues( NULL, NULL )  |
+    |  copyFields( NULL, NULL )  |
     +-------------------------------+
     */
 
     @Test
-    public void mappingValues__Com_objetoA_SUPER_null_e_tipo_null__Entao_retornar_null() {
+    public void copyFields__Com_objetoA_SUPER_null_e_tipo_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSuper model = null;
         ObjetoDtoSuper dto = null;
 
-        System.out.println("\nmappingValues__Com_objetoA_SUPER_null_e_tipo_null__Entao_retornar_null");
+        System.out.println("\ncopyFields__Com_objetoA_SUPER_null_e_tipo_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingValues(model, null);
+        dto = Mapper.copyFields(model, null);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1097,12 +1097,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------------+
-    |  mappingOnlyNullValues( SUB, SUB )  |
+    |  copyFieldsToNullsOnly( SUB, SUB )  |
     +-------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1127,12 +1127,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1150,12 +1150,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------------+
-    |  mappingOnlyNullValues( SUB, SUB- )  |
+    |  copyFieldsToNullsOnly( SUB, SUB- )  |
     +--------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1180,12 +1180,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1203,12 +1203,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------------+
-    |  mappingOnlyNullValues( SUB, NEW )  |
+    |  copyFieldsToNullsOnly( SUB, NEW )  |
     +-------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1223,12 +1223,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1246,12 +1246,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------------+
-    |  mappingOnlyNullValues( NEW, SUB )  |
+    |  copyFieldsToNullsOnly( NEW, SUB )  |
     +-------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1266,12 +1266,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_instanciado_e_objetoB_SUB_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1288,12 +1288,12 @@ class UpdateObjectTest {
 
 
     /*------------------------------------+
-    |  mappingOnlyNullValues( NEW, SUB- )  |
+    |  copyFieldsToNullsOnly( NEW, SUB- )  |
     +-------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_instanciado_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1308,12 +1308,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_instanciado_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_instanciado_e_objetoB_SUB_parcialmente_preenchido__Entao_retornar_dto");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1331,12 +1331,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------------+
-    |  mappingOnlyNullValues( SUB, NULL )  |
+    |  copyFieldsToNullsOnly( SUB, NULL )  |
     +--------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_null__Entao_retornar_null() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSub model = new ObjetoModelSub();
         ObjetoDtoSub dto = null;
@@ -1351,12 +1351,12 @@ class UpdateObjectTest {
         model.setAdmin(true);
         model.setHabilitado(true);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_preenchido_e_objetoB_SUB_null__Entao_retornar_null");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1368,12 +1368,12 @@ class UpdateObjectTest {
 
 
     /*-------------------------------------+
-    |  mappingOnlyNullValues( NULL, SUB )  |
+    |  copyFieldsToNullsOnly( NULL, SUB )  |
     +--------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_null_e_objetoB_SUB_preenchido__Entao_retornar_null() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_null_e_objetoB_SUB_preenchido__Entao_retornar_null() {
         //Dado
         ObjetoModelSub model = null;
         ObjetoDtoSub dto = new ObjetoDtoSub();
@@ -1388,12 +1388,12 @@ class UpdateObjectTest {
         dto.setUltimaModificacao(LocalDateTime.now());
         dto.setAdmin(false);
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_null_e_objetoB_SUB_preenchido__Entao_retornar_null");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_null_e_objetoB_SUB_preenchido__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        dto = UpdateObject.mappingOnlyNullValues(model, dto);
+        dto = Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1405,22 +1405,22 @@ class UpdateObjectTest {
 
 
     /*--------------------------------------+
-    |  mappingOnlyNullValues( NULL, NULL )  |
+    |  copyFieldsToNullsOnly( NULL, NULL )  |
     +---------------------------------------+
     */
 
     @Test
-    public void mappingOnlyNullValues__Com_objetoA_SUB_null_e_objetoB_SUB_null__Entao_retornar_null() {
+    public void copyFieldsToNullsOnly__Com_objetoA_SUB_null_e_objetoB_SUB_null__Entao_retornar_null() {
         //Dado
         ObjetoModelSub model = null;
         ObjetoDtoSub dto = null;
 
-        System.out.println("\nmappingOnlyNullValues__Com_objetoA_SUB_null_e_objetoB_SUB_null__Entao_retornar_null");
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_null_e_objetoB_SUB_null__Entao_retornar_null");
         System.out.println("\n     --------- Antes --------- ");
         printObjectsSideBySide(model, dto);
 
         //Quando
-        UpdateObject.mappingOnlyNullValues(model, dto);
+        Mapper.copyFieldsToNullsOnly(model, dto);
 
         System.out.println("     --------- Depois -------- ");
         printObjectsSideBySide(model, dto);
@@ -1428,6 +1428,48 @@ class UpdateObjectTest {
 
         //Então
         assertThat(dto, is(nullValue()));
+    }
+
+    @Test
+    void copyFieldsToNullsOnly__testing_list_conversion() {
+        //Dado
+        ObjetoModelSub model = new ObjetoModelSub();
+        ObjetoDtoSub dto = new ObjetoDtoSub();
+
+        List<ObjetoModelItem> lista = new ArrayList<>();
+        lista.add(new ObjetoModelItem("Sao Paulo", "SP"));
+        lista.add(new ObjetoModelItem("Minas Gerais", "MG"));
+
+        model.setId(10L);
+        model.setNome("Ana");
+        model.setNascimento("2000-01-01");
+        model.setEndereco("Rua Alpha 123");
+        model.setSalario(10_000.15);
+        model.setGerente(false);
+        model.setDataHoraCriacao(LocalDateTime.now());
+        model.setAdmin(true);
+        model.setHabilitado(true);
+        model.setLista(lista);
+
+        System.out.println("\ncopyFieldsToNullsOnly__Com_objetoA_SUB_preenchido_e_objetoB_SUB_instanciado__Entao_retornar_dto");
+        System.out.println("\n     --------- Antes --------- ");
+        printObjectsSideBySide(model, dto);
+
+        //Quando
+        Mapper.copyFieldsToNullsOnly(model, dto);
+
+        System.out.println("     --------- Depois -------- ");
+        printObjectsSideBySide(model, dto);
+        System.out.println("\n");
+
+        //Então
+        assertThat(model.getId(), is(dto.getId()));
+        assertThat(model.getNome(), is(dto.getNome()));
+        assertThat(model.getNascimento(), is(dto.getNascimento()));
+        assertThat(model.getSalario(), is(not(dto.getSalario())));
+        assertThat(model.getGerente(), is(dto.getGerente()));
+        assertThat(model.getDataHoraCriacao(), is(dto.getDataHoraCriacao()));
+        assertThat(model.isAdmin(), is(not(dto.isAdmin())));
     }
 
 
@@ -1602,6 +1644,8 @@ class ObjetoModelSub extends ObjetoModelSuper {
     private boolean admin;
     private Boolean habilitado;
 
+    private List<ObjetoModelItem> lista = new ArrayList<>();
+
     public String getBairro() {
         if (getEndereco() != null) {
             return super.getEndereco().substring(super.getEndereco().length() - 5, super.getEndereco().length());
@@ -1623,10 +1667,22 @@ class ObjetoModelSub extends ObjetoModelSuper {
                 "\n admin: " + admin +
                 "\n habilitado: " + habilitado +
                 "\n getBairro(): " + getBairro() +
+                "\n lista: " + lista + "  - type: " + lista.getClass().getTypeName() +
                 "\n}";
     }
 
 }
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+class ObjetoModelItem {
+    private String estado;
+    private String uf;
+}
+
 
 @Getter
 @Setter
@@ -1690,6 +1746,8 @@ class ObjetoDtoSub extends ObjetoDtoSuper {
     private LocalDateTime ultimaModificacao;
     private boolean admin;
 
+    private List<ObjetoDtoItem> lista;
+
     @Override
     public String toString() {
         return "ObjetoDtoSub {" +
@@ -1697,7 +1755,19 @@ class ObjetoDtoSub extends ObjetoDtoSuper {
                 "\n dataHoraCriacao: " + dataHoraCriacao +
                 "\n ultimaModificacao: " + ultimaModificacao +
                 "\n admin: " + admin +
+                "\n lista: " + lista +
                 "\n}";
     }
 
+}
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+class ObjetoDtoItem {
+    private String estado;
+    private String uf;
+    private int idade;
 }

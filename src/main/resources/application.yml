@@ -6,26 +6,19 @@ spring:
     password: probe123
   jpa:
     hibernate:
+#     Disables Hibernate's default of managing auto-generated IDs.
       use-new-id-generator-mappings: false
 #      # JPA OPTIONS:
-#      # none         = ?
-#      # update       = increment DB
-#      # validate     = ?
-#      # create-drop  = reset/create and drops DB when SeessionFactory closes
-#      # ref.: https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html
-      ddl-auto: create-drop
+#      # none         = keeps the data, does not update modified columns and
+#                       if there are no tables, it does not recreate them.
+#      # update       = keeps the data and does not update modified columns.
+#      # validate     = keeps the data, does not update modified columns and if there are no tables throws an error.
+#      # create       = recreates the database every time the project runs.
+#      # create-drop  = recreates the database every time the project is executed,
+#                       but deletes the tables at the end of the execution.
+#      # ref.: https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/howto.html#howto.data-initialization
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
-#  mvc:
-#    throw-exception-if-no-handler-found: true
-#  web:
-#    resources:
-#      add-mappings: false
-
-#server:
-#  error:
-#    whitelabel:
-#      enabled: false

@@ -1,4 +1,4 @@
-package br.com.tiagopedroso.moonprobe.controller;
+package br.com.tiagopedroso.moonprobe.entrypoint.controller;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.web.bind.annotation.GetMapping;

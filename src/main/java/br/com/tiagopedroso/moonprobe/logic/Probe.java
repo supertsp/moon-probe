@@ -1,4 +1,4 @@
-package br.com.tiagopedroso.moonprobe.model;
+package br.com.tiagopedroso.moonprobe.logic;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
