@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProbeRepository extends JpaRepository<Probe, Long> {
 
-//    @Modifying
     @Modifying(clearAutomatically = true)
     @Query(value = """
             update probe
@@ -17,8 +16,6 @@ public interface ProbeRepository extends JpaRepository<Probe, Long> {
     void insertCelestialAreaId(
             Long celestialAreaId,
             Long probeId
-//            @Param("celestialAreaId") Long celestialAreaId,
-//            @Param("probeId") Long probeId
     );
 
 }

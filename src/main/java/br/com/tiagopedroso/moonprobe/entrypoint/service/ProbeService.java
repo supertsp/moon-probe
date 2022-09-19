@@ -1,9 +1,9 @@
 package br.com.tiagopedroso.moonprobe.entrypoint.service;
 
-import br.com.tiagopedroso.moonprobe.entrypoint.dto.celestialarea.CelestialAreaResponse;
 import br.com.tiagopedroso.moonprobe.entrypoint.dto.probe.ProbeCreate;
 import br.com.tiagopedroso.moonprobe.entrypoint.dto.probe.ProbeResponse;
 import br.com.tiagopedroso.moonprobe.entrypoint.model.CelestialArea;
+import br.com.tiagopedroso.moonprobe.entrypoint.model.Probe;
 import br.com.tiagopedroso.moonprobe.entrypoint.repository.ProbeRepository;
 import br.com.tiagopedroso.moonprobe.infra.converter.ProbeConverter;
 import br.com.tiagopedroso.moonprobe.infra.exception.RestError400Exception;
@@ -24,6 +24,20 @@ public class ProbeService {
 
     ProbeRepository repository;
 
+    ProbeResponse createOrUpdate(ProbeCreate dto) {
+        final var model = convertCreateDtoToModel(dto);
+        final var savedModel = repository.save(model);
+        return convertModelToResponseDto(savedModel);
+    }
+
+    Probe findByIdOrThrow(Long id) {
+        return repository.findById(id).orElseThrow(() ->
+                RestError404Exception.build(
+                        "probeId=%d", id
+                )
+        );
+    }
+
     public ProbeResponse create(ProbeCreate dto) {
         final var logic = convertCreateDtoToLogic(dto);
 
@@ -43,22 +57,22 @@ public class ProbeService {
 
     public ProbeResponse getById(Long id) {
         return convertModelToResponseDto(
-                repository.findById(id).orElseThrow(() ->
-                        RestError404Exception.build(
-                                "id=%d", id
-                        )
-                )
+                findByIdOrThrow(id)
         );
     }
 
     public ProbeResponse update(Long id, ProbeCreate dto) {
-        final var originalDto = getById(id);
-        final var updatedDto = copyFieldsToNullsOnly(originalDto, dto);
-        final var logic = convertCreateDtoToLogic(updatedDto);
+        //keeps CelestialArea inclusion
+        final var modelSearched = findByIdOrThrow(id);
 
-        if (logic.getCommandSequence().isValid()) {
-            dto.setId(id);
-            return createOrUpdate(dto);
+        dto.setId(id);
+        final var modelCreate = convertCreateDtoToModel(dto);
+
+        final var updatedModel = copyFieldsToNullsOnly(modelSearched, modelCreate);
+        final var logic = convertModelToLogic(updatedModel);
+
+        if (logic.getCommandSequence() != null && logic.getCommandSequence().isValid()) {
+            return convertModelToResponseDto(repository.save(updatedModel));
         }
 
         throw RestError400Exception.build("The command sequence is invalid");
@@ -70,59 +84,15 @@ public class ProbeService {
     }
 
     @Transactional
-    public void includeCelestialAreaId(CelestialAreaResponse celestialAreaResponse, Long probeId) {
-//        dto.setCelestialAreaId(celestialAreaId);
-//        final var model = convertResponseDtoToModel(dto);
-
-        //TODO FAZER MELHORES CONVERSORES NOS CONVERTERS
-
-        var model = repository.findById(probeId).get();
-        model.setCelestialArea(
-                new CelestialArea(
-                        celestialAreaResponse.getId(),
-                        celestialAreaResponse.getName(),
-                        celestialAreaResponse.getWidth(),
-                        celestialAreaResponse.getHeight(),
-                        celestialAreaResponse.getCreated()
-                )
+    public void includeCelestialAreaId(CelestialArea celestialAreaModel, Long probeId) {
+        final var model = convertResponseDtoToModel(
+                getById(probeId),
+                celestialAreaModel
         );
 
-//        var model = new Probe(
-//                dto.getId(),
-//                dto.getName(),
-//                dto.getX(),
-//                dto.getY(),
-//                dto.getOrientation(),
-//                dto.getCommandSequence(),
-//                dto.getCreated(),
-//                new CelestialArea(
-//                        celestialAreaResponse.getId(),
-//                        celestialAreaResponse.getName(),
-//                        celestialAreaResponse.getWidth(),
-//                        celestialAreaResponse.getHeight(),
-//                        celestialAreaResponse.getCreated()
-//                )
-//        );
-        System.out.println("\n\n [before] model P: \n" + model);
+        repository.save(model);
 
-        var modelResponse = repository.save(model);
-
-        System.out.println("\n\n [middle] model P: \n" + modelResponse);
-
-
-        var newModel = repository.findById(probeId).get();
-
-        System.out.println("\n\n [after] model P: \n" + newModel);
-
-
-
-//        repository.insertCelestialAreaId(celestialAreaId, dto.getId());
     }
 
-    private ProbeResponse createOrUpdate(ProbeCreate dto) {
-        final var model = convertCreateDtoToModel(dto);
-        final var savedModel = repository.save(model);
-        return convertModelToResponseDto(savedModel);
-    }
 
 }
