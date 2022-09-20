@@ -41,6 +41,8 @@ public class Probe implements Serializable {
     @Column(nullable = false)
     LocalDateTime created;
 
+    Integer totalMovements;
+
     //Relationship: side N
     @ManyToOne
     @JoinColumn(name = "celestialAreaId")

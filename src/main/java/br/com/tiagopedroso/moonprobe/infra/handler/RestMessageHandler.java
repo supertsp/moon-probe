@@ -88,4 +88,8 @@ public final class RestMessageHandler {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
+    public static <T> ResponseEntity<?> resourceWithoutContent() {
+        return ResponseEntity.noContent().build();
+    }
+
 }

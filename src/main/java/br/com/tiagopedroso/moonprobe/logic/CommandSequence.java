@@ -50,6 +50,12 @@ public class CommandSequence {
         }
     }
 
+    public void syncCurrentIndexWithTotalMovements(int totalMovements) {
+        if (totalMovements >= 0 && totalMovements <= sequence.length()) {
+            currentIndex = totalMovements;
+        }
+    }
+
     private boolean validateCommandSequence() {
         var commands = Command.values();
         var chars = sequence.toCharArray();

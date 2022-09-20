@@ -65,6 +65,16 @@ public class CelestialArea {
         return false;
     }
 
+    private boolean hasAnyProbesStillOnMovement() {
+        for (var probe : probes) {
+            if (!probe.hasMoreMoves()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -165,11 +175,14 @@ public class CelestialArea {
     public void moveProbesStepByStepUntilLastCommand() {
         Map<Integer, String> probesRemoved = new HashMap<>();
 
-        for (int index = 0; probesRemoved.size() < probes.size(); index++) {
-            index = index >= probes.size() ? 0 : index;
+        if (hasAnyProbesStillOnMovement()) {
+            for (int index = 0; probesRemoved.size() < probes.size(); index++) {
+                index = index >= probes.size() ? 0 : index;
 
-            if (!moveProbeByIndex(index)) {
-                probesRemoved.put(index, getProbe(index).name);
+                if (!moveProbeByIndex(index)) {
+                    probesRemoved.put(index, getProbe(index).name);
+                    System.out.println("\n\n totalMovements of " + getProbe(index).name + " " + getProbe(index).getTotalMovements());
+                }
             }
         }
     }

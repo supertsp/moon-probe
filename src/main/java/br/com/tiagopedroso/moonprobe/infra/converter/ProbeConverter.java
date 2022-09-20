@@ -9,6 +9,8 @@ import br.com.tiagopedroso.moonprobe.infra.exception.ConverterException;
 import br.com.tiagopedroso.moonprobe.logic.CommandSequence;
 import br.com.tiagopedroso.moonprobe.logic.FitCoord;
 
+import java.time.LocalDateTime;
+
 public class ProbeConverter {
 
     private ProbeConverter() {
@@ -36,6 +38,7 @@ public class ProbeConverter {
                     dto.getOrientation(),
                     dto.getCommandSequence(),
                     dto.getCreated(),
+                    dto.getTotalMovements(),
                     null
             );
         }
@@ -48,6 +51,7 @@ public class ProbeConverter {
                 dto.getOrientation(),
                 dto.getCommandSequence(),
                 dto.getCreated(),
+                dto.getTotalMovements(),
                 repository.findById(dto.getCelestialAreaId()).get()
         );
     }
@@ -65,6 +69,7 @@ public class ProbeConverter {
                 dto.getOrientation(),
                 dto.getCommandSequence(),
                 dto.getCreated(),
+                dto.getTotalMovements(),
                 model
         );
     }
@@ -91,7 +96,8 @@ public class ProbeConverter {
                     model.getOrientation(),
                     model.getCommandSequence(),
                     model.getCreated(),
-                    null
+                    null,
+                    model.getTotalMovements()
             );
         }
 
@@ -103,7 +109,8 @@ public class ProbeConverter {
                 model.getOrientation(),
                 model.getCommandSequence(),
                 model.getCreated(),
-                model.getCelestialArea().getId()
+                model.getCelestialArea().getId(),
+                model.getTotalMovements()
         );
     }
 
@@ -143,6 +150,47 @@ public class ProbeConverter {
                 new FitCoord(model.getX(), model.getY(), model.getX(), model.getY()),
                 model.getOrientation(),
                 new CommandSequence(model.getCommandSequence())
+        );
+    }
+
+    public static br.com.tiagopedroso.moonprobe.logic.Probe convertModelToLogic(
+            Probe model,
+            int widthLimit,
+            int heightLimit
+    ) {
+        if (model == null) {
+            throw new ConverterException("Model", Probe.class);
+        }
+
+        return new br.com.tiagopedroso.moonprobe.logic.Probe(
+                model.getName(),
+                new FitCoord(model.getX(), model.getY(), widthLimit, heightLimit),
+                model.getOrientation(),
+                new CommandSequence(model.getCommandSequence()),
+                model.getTotalMovements()
+        );
+    }
+
+    public static Probe convertLogicToModel(
+            br.com.tiagopedroso.moonprobe.logic.Probe logic,
+            Long probeId,
+            LocalDateTime probeCreated,
+            CelestialArea celestialAreaModel
+    ) {
+        if (logic == null) {
+            throw new ConverterException("Logic", ProbeResponse.class);
+        }
+
+        return new Probe(
+                probeId,
+                logic.getName(),
+                logic.coord.getX(),
+                logic.coord.getY(),
+                logic.getOrientation(),
+                logic.getCommandSequence().getSequence(),
+                probeCreated,
+                logic.getTotalMovements(),
+                celestialAreaModel
         );
     }
 

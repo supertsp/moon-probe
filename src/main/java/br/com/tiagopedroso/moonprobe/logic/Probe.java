@@ -47,6 +47,11 @@ public class Probe {
         startsMovementDebugging();
     }
 
+    public Probe(String name, FitCoord coord, Orientation orientation, CommandSequence commandSequence, int totalMovements) {
+        this(name, coord, orientation, commandSequence);
+        setTotalMovements(totalMovements);
+    }
+
     public Probe(String name, Integer widthLimit, Integer heightLimit, Orientation orientation) {
         this(name, new FitCoord(widthLimit, heightLimit), orientation, null);
     }
@@ -76,9 +81,12 @@ public class Probe {
     }
 
     public boolean move() {
-        if (commandSequence == null || !commandSequence.isValid() || !commandSequence.hasMoreCommand()) {
+        if (commandSequence == null || !commandSequence.isValid() || !hasMoreMoves()) {
             return false;
         }
+
+        //sync last moves with DB
+        commandSequence.syncCurrentIndexWithTotalMovements(totalMovements -1);
 
         var currentCommand = commandSequence.getNextCommand();
 
@@ -122,7 +130,7 @@ public class Probe {
     }
 
     public boolean hasMoreMoves() {
-        return commandSequence.hasMoreCommand();
+        return totalMovements -1 <= commandSequence.getSequence().length();
     }
 
     public void resetMovements() {
@@ -144,6 +152,12 @@ public class Probe {
     public void setCommandSequence(CommandSequence commandSequence) {
         this.commandSequence = commandSequence;
         resetMovements();
+    }
+
+    private void setTotalMovements(int value) {
+        if (value >= 0) {
+            totalMovements = value;
+        }
     }
 
     public String getMovementDebugging() {

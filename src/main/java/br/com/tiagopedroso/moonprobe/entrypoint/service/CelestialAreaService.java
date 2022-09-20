@@ -85,7 +85,47 @@ public class CelestialAreaService {
         throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
     }
 
-    public ProbeResponse moveProbe(Long id, Long probeId) {
-        return null;
+    public void removeProbe(Long celestialAreaId, Long probeId) {
+        if (repository.existsById(celestialAreaId)) {
+            probeService.removeCelestialAreaId(
+                    findByIdOrThrow(celestialAreaId),
+                    probeId
+            );
+        } else {
+            throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
+        }
     }
+
+    public ProbeResponse moveProbe(Long celestialAreaId, Long probeId) {
+        if (repository.existsById(celestialAreaId)) {
+            return probeService.move(
+                    findByIdOrThrow(celestialAreaId),
+                    probeId
+            );
+        }
+
+        throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
+    }
+
+    public ProbeResponse moveProbeAllSequences(Long celestialAreaId, Long probeId) {
+        if (repository.existsById(celestialAreaId)) {
+            return probeService.moveAllSequences(
+                    findByIdOrThrow(celestialAreaId),
+                    probeId
+            );
+        }
+
+        throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
+    }
+
+    public List<ProbeResponse> moveAllProbesUntilLastSequence(Long celestialAreaId) {
+        if (repository.existsById(celestialAreaId)) {
+            return probeService.moveAllProbesUntilLastSequence(
+                    findByIdOrThrow(celestialAreaId)
+            );
+        }
+
+        throw RestError400Exception.build("The celestialAreaId=%d is invalid :(", celestialAreaId);
+    }
+
 }

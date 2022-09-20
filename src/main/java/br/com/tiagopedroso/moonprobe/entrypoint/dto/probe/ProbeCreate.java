@@ -22,5 +22,6 @@ public class ProbeCreate {
     Orientation orientation;
     String commandSequence;
     LocalDateTime created = LocalDateTime.now();
+    Integer totalMovements = 0;
 
 }

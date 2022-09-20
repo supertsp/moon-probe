@@ -23,5 +23,6 @@ public class ProbeResponse {
     String commandSequence;
     LocalDateTime created = LocalDateTime.now();
     Long celestialAreaId;
+    Integer totalMovements = 0;
 
 }

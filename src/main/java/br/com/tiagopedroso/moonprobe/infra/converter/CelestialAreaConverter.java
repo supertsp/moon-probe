@@ -112,7 +112,11 @@ public class CelestialAreaConverter {
             model.getProbes()
                     .forEach(probeModel ->
                             logic.addProbe(
-                                    ProbeConverter.convertModelToLogic(probeModel)
+                                    ProbeConverter.convertModelToLogic(
+                                            probeModel,
+                                            model.getWidth(),
+                                            model.getHeight()
+                                    )
                             )
                     );
         }
