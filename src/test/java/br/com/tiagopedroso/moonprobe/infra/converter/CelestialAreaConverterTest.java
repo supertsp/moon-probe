@@ -87,6 +87,7 @@ class CelestialAreaConverterTest {
                 Orientation.NORTH,
                 "RM",
                 created,
+                0,
                 celestialAreaWithProbeList
         );
 

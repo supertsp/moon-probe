@@ -96,6 +96,7 @@ class ProbeConverterTest {
                 Orientation.NORTH,
                 "RM",
                 created,
+                0,
                 celestialAreaModel
         );
         celestialAreaModel.getProbes().add(probeWithCelestialArea1);
@@ -108,6 +109,7 @@ class ProbeConverterTest {
                 Orientation.EAST,
                 "M",
                 created,
+                0,
                 celestialAreaModel
         );
         celestialAreaModel.getProbes().add(probeWithCelestialArea2);
@@ -123,6 +125,7 @@ class ProbeConverterTest {
                         Orientation.SOUTH,
                         "MLLMM",
                         created,
+                        0,
                         null
                 )
         );
@@ -135,6 +138,7 @@ class ProbeConverterTest {
                         Orientation.WEST,
                         "RRM",
                         created,
+                0,
                         null
                 )
         );
@@ -149,7 +153,8 @@ class ProbeConverterTest {
                         2,
                         Orientation.NORTH,
                         "RM",
-                        created
+                        created,
+                0
                 )
         );
 
@@ -160,7 +165,8 @@ class ProbeConverterTest {
                         3,
                         Orientation.EAST,
                         "M",
-                        created
+                        created,
+                0
                 )
         );
 
@@ -171,7 +177,8 @@ class ProbeConverterTest {
                         1,
                         Orientation.SOUTH,
                         "MLLMM",
-                        created
+                        created,
+                0
                 )
         );
 
@@ -182,7 +189,8 @@ class ProbeConverterTest {
                         9,
                         Orientation.WEST,
                         "RRM",
-                        created
+                        created,
+                0
                 )
         );
     }
@@ -197,7 +205,8 @@ class ProbeConverterTest {
                         Orientation.NORTH,
                         "RM",
                         created,
-                        1L
+                        1L,
+                0
                 )
         );
 
@@ -209,7 +218,8 @@ class ProbeConverterTest {
                         Orientation.EAST,
                         "M",
                         created,
-                        1L
+                        1L,
+                0
                 )
         );
 
@@ -221,7 +231,8 @@ class ProbeConverterTest {
                         Orientation.SOUTH,
                         "MLLMM",
                         created,
-                        null
+                        null,
+                0
                 )
         );
 
@@ -233,7 +244,8 @@ class ProbeConverterTest {
                         Orientation.WEST,
                         "RRM",
                         created,
-                        null
+                        null,
+                0
                 )
         );
     }
